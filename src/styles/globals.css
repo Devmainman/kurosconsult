@@ -1,0 +1,195 @@
+/* src/styles/globals.css - Updated for @tailwindcss/vite */
+@import "tailwindcss";
+
+@layer theme {
+  :root {
+    --primary-light: #2FABC7;
+    --primary: #1B7F9E;
+    --primary-dark: #135E73;
+    --accent-yellow: #F7E701;
+    --accent-gold: #FEC300;
+    --accent-orange: #D89A22;
+    --accent-cream: #FAFAD2;
+    
+    /* Add Tailwind color extensions */
+    --color-gray-900: #111827;
+    --color-gray-800: #1f2937;
+    --color-gray-700: #374151;
+    --color-gray-600: #4b5563;
+    --color-gray-500: #6b7280;
+    --color-gray-400: #9ca3af;
+    --color-gray-300: #d1d5db;
+    --color-gray-200: #e5e7eb;
+    --color-gray-100: #f3f4f6;
+    --color-gray-50: #f9fafb;
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--color-gray-900);
+    background-color: white;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+  }
+}
+
+@layer components {
+  .container {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    
+    @media (min-width: 640px) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    
+    @media (min-width: 1024px) {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .btn-primary {
+    background-color: var(--primary);
+    color: white;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition-property: all;
+    transition-duration: 300ms;
+    
+    &:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    &:focus {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      ring-width: 2px;
+      ring-color: var(--primary);
+      ring-offset-width: 2px;
+    }
+  }
+
+  .btn-secondary {
+    background-color: var(--accent-gold);
+    color: var(--color-gray-900);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition-property: all;
+    transition-duration: 300ms;
+    
+    &:hover {
+      background-color: var(--accent-orange);
+    }
+    
+    &:focus {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      ring-width: 2px;
+      ring-color: var(--accent-gold);
+      ring-offset-width: 2px;
+    }
+  }
+
+  .section-padding {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    
+    @media (min-width: 768px) {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+  }
+
+  .card {
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    transition-property: all;
+    transition-duration: 300ms;
+    
+    &:hover {
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      transform: translateY(-0.25rem);
+    }
+  }
+
+  .input-field {
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 0.5rem;
+    
+    &:focus {
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+      ring-width: 2px;
+      ring-color: var(--primary);
+      border-color: transparent;
+    }
+    
+    transition-property: all;
+    transition-duration: 200ms;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Selection color */
+::selection {
+  background-color: var(--primary-light);
+  color: white;
+}
+
+/* Remove blue highlight on mobile tap */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Smooth transitions for theme changes */
+*,
+*::before,
+*::after {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
