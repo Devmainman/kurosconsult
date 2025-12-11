@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, MessageCircle, Instagram, Facebook, Linkedin, MapPin, Phone, Mail } from 'lucide-react';
+import logo from '../assets/kuro.png'; 
+import logowhite from '../assets/kurowhite.png'; 
 
 export const Navigation = ({ currentPage, setCurrentPage, mobileMenuOpen, setMobileMenuOpen }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -24,7 +26,7 @@ export const Navigation = ({ currentPage, setCurrentPage, mobileMenuOpen, setMob
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
       scrolled ? 'bg-white/80 backdrop-blur-xl shadow-sm py-3' : 'bg-transparent py-6'
     }`}>
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-2">
         <div className="flex justify-between items-center">
           {/* Brand Identity */}
           <motion.div 
@@ -32,13 +34,11 @@ export const Navigation = ({ currentPage, setCurrentPage, mobileMenuOpen, setMob
             onClick={() => setCurrentPage('home')}
             whileHover={{ x: 2 }}
           >
-            <div className="w-11 h-11 bg-gradient-to-br from-[#135E73] to-[#2FA8C7] rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-[#135E73]/20 group-hover:shadow-[#135E73]/40 transition-all duration-300">
-              KC
+            {/* Logo Image Container */}
+            <div className="w-52 rounded-xl flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:scale-105">
+              <img src={logo} alt="Kuros' Consult Logo" className="w-full h-full object-contain" />
             </div>
-            <div>
-              <h1 className="text-lg font-bold text-[#135E73] tracking-tight leading-none">Kuros' Consult</h1>
-              <p className="text-[10px] text-[#FEC300] font-bold uppercase tracking-[0.2em]">Digital Ecosystem</p>
-            </div>
+           
           </motion.div>
 
           {/* Desktop Nav */}
@@ -106,9 +106,14 @@ export const Footer = ({ setPage }) => (
     <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#2FA8C7] rounded-full mix-blend-overlay filter blur-[120px] opacity-20 translate-x-1/2 -translate-y-1/2"></div>
     
     <div className="max-w-7xl mx-auto px-6 relative z-10">
-      <div className="grid md:grid-cols-12 gap-12 mb-20 border-b border-white/10 pb-16">
+      <div className="grid md:grid-cols-12 gap-12 mb-20 pb-16">
         <div className="md:col-span-5">
-          <h2 className="text-3xl font-light tracking-tight mb-6">Kuros' Consult Limited</h2>
+          <div className="flex items-start mb-6">
+             <div className="w-50 rounded-lg flex items-center justify-center overflow-hidden">
+                <img src={logowhite} alt="KC Logo" className="w-full h-full object-contain" />
+             </div>
+            
+          </div>
           <p className="text-white/70 font-light leading-relaxed mb-8 max-w-md text-lg">
             The engine room of creativity, technology, and opportunity. We connect youth talent with meaningful work and empower brands with transformative digital solutions.
           </p>
