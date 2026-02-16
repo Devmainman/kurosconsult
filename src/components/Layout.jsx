@@ -14,13 +14,16 @@ export const Navigation = ({ currentPage, setCurrentPage, mobileMenuOpen, setMob
   }, []);
 
   const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'Who We Are' },
-    { id: 'services', label: 'What We Do' },
-    { id: 'impact', label: 'Impact' },
-    { id: 'portfolio', label: 'Works' },
-    { id: 'contact', label: 'Let\'s Talk' }
-  ];
+  { id: 'home', label: 'Home' },
+  { id: 'about', label: 'Who We Are' },
+  { id: 'services', label: 'What We Do' },
+  { id: 'impact', label: 'Impact' },
+  { id: 'portfolio', label: 'Works' },
+  { id: 'kcc', label: 'Kids Coding Club' },
+  { id: 'kcc-volunteer', label: 'KCC Volunteer' },
+  { id: 'contact', label: 'Let\'s Talk' }
+];
+
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${

@@ -11,6 +11,9 @@ import { ServicesPage } from './pages/Services';
 import { ImpactPage } from './pages/Impact';
 import { PortfolioPage } from './pages/Portfolio'; // Now using the real Portfolio page
 import { ContactPage } from './pages/Contact';
+import { KidsCodingClubPage } from './pages/KidsCodingClub';
+import { KCCVolunteerPage } from './pages/KCCVolunteer';
+
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
@@ -22,16 +25,19 @@ const App = () => {
   }, [currentPage]);
 
   const renderPage = () => {
-    switch(currentPage) {
-      case 'home': return <HomePage setPage={setCurrentPage} />;
-      case 'about': return <AboutPage setPage={setCurrentPage} />;
-      case 'services': return <ServicesPage setPage={setCurrentPage} />;
-      case 'impact': return <ImpactPage setPage={setCurrentPage} />;
-      case 'portfolio': return <PortfolioPage setPage={setCurrentPage} />;
-      case 'contact': return <ContactPage setPage={setCurrentPage} />;
-      default: return <HomePage setPage={setCurrentPage} />;
-    }
-  };
+  switch(currentPage) {
+    case 'home': return <HomePage setPage={setCurrentPage} />;
+    case 'about': return <AboutPage setPage={setCurrentPage} />;
+    case 'services': return <ServicesPage setPage={setCurrentPage} />;
+    case 'impact': return <ImpactPage setPage={setCurrentPage} />;
+    case 'portfolio': return <PortfolioPage setPage={setCurrentPage} />;
+    case 'contact': return <ContactPage setPage={setCurrentPage} />;
+    case 'kcc': return <KidsCodingClubPage setPage={setCurrentPage} />;
+    case 'kcc-volunteer': return <KCCVolunteerPage setPage={setCurrentPage} />;
+    default: return <HomePage setPage={setCurrentPage} />;
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-white text-gray-900 font-sans selection:bg-[#FEC300] selection:text-[#135E73]">
