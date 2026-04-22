@@ -14,16 +14,16 @@ export const Navigation = ({ currentPage, setCurrentPage, mobileMenuOpen, setMob
   }, []);
 
   const navItems = [
-  { id: 'home', label: 'Home' },
-  { id: 'about', label: 'Who We Are' },
-  { id: 'services', label: 'What We Do' },
-  { id: 'impact', label: 'Impact' },
-  { id: 'portfolio', label: 'Works' },
-  { id: 'kcc', label: 'Kids Coding Club' },
-  { id: 'kcc-volunteer', label: 'KCC Volunteer' },
-  { id: 'contact', label: 'Let\'s Talk' }
-];
-
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'Who We Are' },
+    { id: 'services', label: 'What We Do' },
+    { id: 'impact', label: 'Impact' },
+    { id: 'portfolio', label: 'Works' },
+    { id: 'kcc', label: 'Kids Coding Club' },
+    { id: 'kcc-volunteer', label: 'KCC Volunteer' },
+    { id: 'blog', label: 'Blog' },
+    { id: 'contact', label: "Let's Talk" }
+  ];
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
@@ -37,11 +37,9 @@ export const Navigation = ({ currentPage, setCurrentPage, mobileMenuOpen, setMob
             onClick={() => setCurrentPage('home')}
             whileHover={{ x: 2 }}
           >
-            {/* Logo Image Container */}
             <div className="w-52 rounded-xl flex items-center justify-center overflow-hidden transition-all duration-300 group-hover:scale-105">
               <img src={logo} alt="Kuros' Consult Logo" className="w-full h-full object-contain" />
             </div>
-           
           </motion.div>
 
           {/* Desktop Nav */}
@@ -68,29 +66,48 @@ export const Navigation = ({ currentPage, setCurrentPage, mobileMenuOpen, setMob
             ))}
           </div>
 
-          <button className="lg:hidden p-2 text-[#135E73]" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X /> : <Menu />}
+          {/* Hamburger / X in top bar */}
+          <button 
+            className="lg:hidden p-2 text-[#135E73]" 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu (Full-screen) */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: '100vh' }}
             exit={{ opacity: 0, height: 0 }}
-            className="absolute top-0 left-0 w-full bg-white z-40 lg:hidden flex flex-col pt-24 px-8"
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="absolute top-0 left-0 w-full bg-white z-40 lg:hidden flex flex-col pt-4 px-8"
           >
+            {/* Close Button INSIDE the menu - big & obvious */}
+            <div className="flex justify-end mb-2">
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-3 text-[#135E73] hover:bg-gray-100 rounded-full transition-all"
+              >
+                <X size={36} />
+              </button>
+            </div>
+
+            {/* Menu Items */}
             {navItems.map((item, i) => (
               <motion.button
                 key={item.id}
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: i * 0.1 }}
-                onClick={() => { setCurrentPage(item.id); setMobileMenuOpen(false); }}
-                className={`text-3xl font-light text-left py-4 border-b border-gray-100 ${
+                transition={{ delay: i * 0.08 }}
+                onClick={() => { 
+                  setCurrentPage(item.id); 
+                  setMobileMenuOpen(false); 
+                }}
+                className={`text-3xl font-light text-left py-5 border-b border-gray-100 last:border-none ${
                   currentPage === item.id ? 'text-[#135E73] font-bold' : 'text-gray-400'
                 }`}
               >

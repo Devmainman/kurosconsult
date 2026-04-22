@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Smartphone, 
@@ -30,6 +30,33 @@ export const ServicesPage = ({ setPage }) => {
     budget: '',
     timeline: ''
   });
+  const [services, setServices] = useState([]);
+  const [servicesLoading, setServicesLoading] = useState(true);
+
+  const iconMap = {
+  'Mobile Applications': <Smartphone />,
+  'E-Commerce Systems': <ShoppingCart />,
+  'CRM & ERP': <Monitor />,
+  'Digital Real Estate': <Layout />,
+  'Creative Branding & Visibility': <Users />,
+  'Project Management & Strategy': <FileText />,
+  'Learning & Capacity Development': <TrendingUp />
+};
+
+  useEffect(() => {
+  const fetchServices = async () => {
+    try {
+      const res = await axios.get('/services?isActive=true');
+      setServices(res.data.data);
+    } catch (err) {
+      console.error('Failed to fetch services', err);
+    } finally {
+      setServicesLoading(false);
+    }
+  };
+
+  fetchServices();
+}, []);
 
   const projectTypes = [
     'Web Development',
@@ -313,25 +340,27 @@ export const ServicesPage = ({ setPage }) => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { icon: <Smartphone />, title: 'Mobile Applications', desc: 'Native and cross-platform apps designed for seamless user experiences.' },
-              { icon: <ShoppingCart />, title: 'E-Commerce Systems', desc: 'Robust online store platforms with integrated payment gateways.' },
-              { icon: <Monitor />, title: 'CRM & ERP', desc: 'Custom dashboards and workflow systems to manage business operations.' },
-              { icon: <Layout />, title: 'Digital Real Estate', desc: 'Platforms supporting secure land and property transactions.' }
-            ].map((item, i) => (
-              <motion.div 
-                key={i}
+          {services
+            .filter(service => service.category === 'Scalable Products')
+            .sort((a, b) => a.order - b.order)
+            .map(service => (
+              <motion.div
+                key={service._id}
                 whileHover={{ y: -10 }}
                 className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl hover:border-[#2FA8C7]/30 transition-all group"
               >
                 <div className="w-14 h-14 bg-[#135E73]/5 rounded-2xl flex items-center justify-center text-[#135E73] mb-6 group-hover:bg-[#135E73] group-hover:text-white transition-colors">
-                  {item.icon}
+                  {iconMap[service.name] || <Monitor />}
                 </div>
-                <h3 className="text-xl font-bold text-[#135E73] mb-3">{item.title}</h3>
-                <p className="text-gray-500 font-light text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="text-xl font-bold text-[#135E73] mb-3">
+                  {service.name}
+                </h3>
+                <p className="text-gray-500 font-light text-sm leading-relaxed">
+                  {service.description.short}
+                </p>
               </motion.div>
-            ))}
-          </div>
+          ))}
+        </div>
         </div>
 
         {/* Business Solutions Section */}
@@ -342,28 +371,45 @@ export const ServicesPage = ({ setPage }) => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-[#135E73] text-white p-10 rounded-[2rem] relative overflow-hidden">
-              <div className="relative z-10">
-                <h3 className="text-3xl font-light mb-6">Creative Branding & <br/><span className="font-bold">Visibility</span></h3>
-                <ul className="space-y-4 font-light text-white/80">
-                  <li className="flex items-center gap-3"><span className="w-2 h-2 bg-[#FEC300] rounded-full"/>Marketing Strategy</li>
-                  <li className="flex items-center gap-3"><span className="w-2 h-2 bg-[#FEC300] rounded-full"/>Visual Identity Design</li>
-                  <li className="flex items-center gap-3"><span className="w-2 h-2 bg-[#FEC300] rounded-full"/>Creative Production</li>
-                </ul>
-              </div>
-              <div className="absolute right-0 bottom-0 w-64 h-64 bg-[#2FA8C7] opacity-20 blur-3xl rounded-full"></div>
-            </div>
+            {services
+  .filter(service => service.category === 'Business Solutions')
+  .sort((a, b) => a.order - b.order)
+  .map((service, index) => (
+    <div
+      key={service._id}
+      className={
+        index === 0
+          ? "bg-[#135E73] text-white p-10 rounded-[2rem] relative overflow-hidden"
+          : "bg-white p-10 rounded-[2rem] border border-gray-200 relative overflow-hidden"
+      }
+    >
+      <div className="relative z-10">
+        <h3
+          className={
+            index === 0
+              ? "text-3xl font-light mb-6"
+              : "text-3xl font-light text-[#135E73] mb-6"
+          }
+        >
+          {service.name}
+        </h3>
 
-            <div className="bg-white p-10 rounded-[2rem] border border-gray-200 relative overflow-hidden">
-              <div className="relative z-10">
-                <h3 className="text-3xl font-light text-[#135E73] mb-6">Project Management & <br/><span className="font-bold">Strategy</span></h3>
-                <ul className="space-y-4 font-light text-gray-500">
-                  <li className="flex items-center gap-3"><span className="w-2 h-2 bg-[#135E73] rounded-full"/>Agile Execution</li>
-                  <li className="flex items-center gap-3"><span className="w-2 h-2 bg-[#135E73] rounded-full"/>Corporate Strategy</li>
-                  <li className="flex items-center gap-3"><span className="w-2 h-2 bg-[#135E73] rounded-full"/>Operational Efficiency</li>
-                </ul>
-              </div>
-            </div>
+        <p
+          className={
+            index === 0
+              ? "font-light text-white/80"
+              : "font-light text-gray-500"
+          }
+        >
+          {service.description.short}
+        </p>
+      </div>
+
+      {index === 0 && (
+        <div className="absolute right-0 bottom-0 w-64 h-64 bg-[#2FA8C7] opacity-20 blur-3xl rounded-full"></div>
+      )}
+    </div>
+))}
           </div>
         </div>
 

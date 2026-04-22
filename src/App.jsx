@@ -13,11 +13,14 @@ import { PortfolioPage } from './pages/Portfolio'; // Now using the real Portfol
 import { ContactPage } from './pages/Contact';
 import { KidsCodingClubPage } from './pages/KidsCodingClub';
 import { KCCVolunteerPage } from './pages/KCCVolunteer';
+import { BlogPage } from './pages/Blog';
+import { BlogPostPage } from './pages/BlogPost';
 
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentPostSlug, setCurrentPostSlug] = useState(null);
 
   // Scroll to top whenever the page changes
   useEffect(() => {
@@ -34,6 +37,13 @@ const App = () => {
     case 'contact': return <ContactPage setPage={setCurrentPage} />;
     case 'kcc': return <KidsCodingClubPage setPage={setCurrentPage} />;
     case 'kcc-volunteer': return <KCCVolunteerPage setPage={setCurrentPage} />;
+    case 'blog': 
+    return <BlogPage 
+      setPage={setCurrentPage} 
+      setCurrentPostSlug={setCurrentPostSlug}   // add this line
+    />;
+    case 'blog-post':
+      return <BlogPostPage slug={currentPostSlug} setPage={setCurrentPage} />;
     default: return <HomePage setPage={setCurrentPage} />;
   }
 };
